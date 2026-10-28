@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="appTitle">RemoteTV D-Pad</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="logo-badge" aria-hidden="true">
+          <img src="icons/icon48.png" alt="">
+        </div>
+        <div class="brand-text">
+          <div class="brand-title-row">
+            <h1 class="brand-title" data-i18n="appTitle">RemoteTV D-Pad</h1>
+            <span id="app-version" class="version-tag">v1.1</span>
+          </div>
+          <span class="brand-subtitle" data-i18n="appSubtitle">Android TV Navigation</span>
+        </div>
+      </div>
+
+      <!-- Master Switch -->
+      <div class="master-control">
+        <span id="master-status" class="master-status" data-i18n="masterStatusActive">Aktif</span>
+        <button type="button" role="switch" id="master-switch" aria-checked="true" aria-label="Aktifkan remot TV secara global" data-i18n-aria="masterSwitchAriaLabel" class="toggle-pill is-checked">
+          <span class="toggle-knob"></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="tabs-nav" role="tablist" aria-label="Navigasi Menu" data-i18n-aria="tabsNavAriaLabel">
+      <button type="button" role="tab" id="tab-settings" aria-controls="panel-settings" aria-selected="true" class="tab-btn active">
+        <svg class="tab-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+        <span data-i18n="tabSettings">Pengaturan</span>
+      </button>
+      <button type="button" role="tab" id="tab-guide" aria-controls="panel-guide" aria-selected="false" class="tab-btn">
+        <svg class="tab-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+          <line x1="12" y1="17" x2="12.01" y2="17"></line>
+        </svg>
+        <span data-i18n="tabGuide">Panduan</span>
+      </button>
+    </nav>
+
+    <!-- Main Scrollable Content -->
+    <main class="main-content">
+      <!-- TAB 1: PENGATURAN -->
+      <section id="panel-settings" role="tabpanel" aria-labelledby="tab-settings" class="tab-panel active">
+        <div id="settings-sections" class="settings-sections">
+
+          <!-- Card 1: Situs Ini -->
+          <div class="card card-site">
+            <div class="card-header">
+              <span class="card-title" data-i18n="cardSiteTitle">Situs Ini</span>
+              <span id="site-hostname-badge" class="badge-hostname" data-i18n="loading">Memuat...</span>
+            </div>
+            <div class="site-toggle-row">
+              <div class="site-info">
+                <span class="item-label" data-i18n="siteToggleLabel">Aktifkan di situs ini</span>
+                <span id="site-desc" class="item-desc" data-i18n="siteDescInitial">Navigasi remot bekerja pada tab aktif</span>
+              </div>
+              <button type="button" role="switch" id="toggle-site" aria-checked="true" aria-label="Aktifkan di situs ini" data-i18n-aria="siteToggleAriaLabel" class="toggle-pill is-checked">
+                <span class="toggle-knob"></span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 2: Fitur -->
+          <div class="card card-features">
+            <h2 class="card-section-title" data-i18n="featuresSectionTitle">Fitur Remot</h2>
+
+            <!-- Fitur: Sound -->
+            <div class="feature-item">
+              <div class="feature-icon" aria-hidden="true">🔊</div>
+              <div class="feature-text">
+                <span class="item-label" data-i18n="featSoundLabel">Efek Suara Navigasi</span>
+                <span class="item-desc" data-i18n="featSoundDesc">Bunyi klik halus saat berpindah elemen</span>
+              </div>
+              <button type="button" role="switch" id="toggle-sound" data-key="sound" aria-checked="true" aria-label="Efek suara navigasi" data-i18n-aria="featSoundAriaLabel" class="toggle-pill is-checked">
+                <span class="toggle-knob"></span>
+              </button>
+            </div>
+
+            <!-- Fitur: OSD -->
+            <div class="feature-item">
+              <div class="feature-icon" aria-hidden="true">💬</div>
+              <div class="feature-text">
+                <span class="item-label" data-i18n="featOsdLabel">Tampilan OSD Video</span>
+                <span class="item-desc" data-i18n="featOsdDesc">Indikator layar saat volume &amp; seek berubah</span>
+              </div>
+              <button type="button" role="switch" id="toggle-osd" data-key="osd" aria-checked="true" aria-label="Tampilan OSD video" data-i18n-aria="featOsdAriaLabel" class="toggle-pill is-checked">
+                <span class="toggle-knob"></span>
+              </button>
+            </div>
+
+            <!-- Fitur: Auto-Skip -->
+            <div class="feature-item">
+              <div class="feature-icon" aria-hidden="true">⏭️</div>
+              <div class="feature-text">
+                <span class="item-label" data-i18n="featAutoSkipLabel">Auto-Skip Iklan &amp; Intro</span>
+                <span class="item-desc" data-i18n="featAutoSkipDesc">Otomatis lewati iklan video jika tersedia</span>
+              </div>
+              <button type="button" role="switch" id="toggle-autoskip" data-key="autoSkip" aria-checked="true" aria-label="Auto-skip iklan dan intro" data-i18n-aria="featAutoSkipAriaLabel" class="toggle-pill is-checked">
+                <span class="toggle-knob"></span>
+              </button>
+            </div>
+
+            <!-- Fitur: Focus Memory -->
+            <div class="feature-item">
+              <div class="feature-icon" aria-hidden="true">🔙</div>
+              <div class="feature-text">
+                <span class="item-label" data-i18n="featFocusMemoryLabel">Ingat Posisi Fokus Terakhir</span>
+                <span class="item-desc" data-i18n="featFocusMemoryDesc">Kembalikan fokus elemen saat tombol kembali</span>
+              </div>
+              <button type="button" role="switch" id="toggle-focusmemory" data-key="focusMemory" aria-checked="true" aria-label="Ingat posisi fokus terakhir" data-i18n-aria="featFocusMemoryAriaLabel" class="toggle-pill is-checked">
+                <span class="toggle-knob"></span>
+              </button>
+            </div>
+
+            <!-- Fitur: Auto-Hide Focus -->
+            <div class="feature-item">
+              <div class="feature-icon" aria-hidden="true">🙈</div>
+              <div class="feature-text">
+                <span class="item-label" data-i18n="featAutoHideFocusLabel">Sembunyikan Fokus Otomatis</span>
+                <span class="item-desc" data-i18n="featAutoHideFocusDesc">Hilangkan kotak fokus saat video diputar</span>
+              </div>
+              <button type="button" role="switch" id="toggle-autohidefocus" data-key="autoHideFocus" aria-checked="true" aria-label="Sembunyikan fokus otomatis saat menonton" data-i18n-aria="featAutoHideFocusAriaLabel" class="toggle-pill is-checked">
+                <span class="toggle-knob"></span>
+              </button>
+            </div>
+
+            <!-- Fitur: Pindah Tab -->
+            <div class="feature-item">
+              <div class="feature-icon" aria-hidden="true">🗂️</div>
+              <div class="feature-text">
+                <span class="item-label" data-i18n="featTabSwitcherLabel">Pindah Tab</span>
+                <span class="item-desc" data-i18n="featTabSwitcherDesc">T = daftar tab, [ dan ] = tab sebelumnya / berikutnya</span>
+              </div>
+              <button type="button" role="switch" id="toggle-tabswitcher" data-key="tabSwitcher" aria-checked="true" aria-label="Pindah tab dengan keyboard" data-i18n-aria="featTabSwitcherAriaLabel" class="toggle-pill is-checked">
+                <span class="toggle-knob"></span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 3: Kontrol Video -->
+          <div class="card card-video">
+            <h2 class="card-section-title" data-i18n="videoSectionTitle">Kontrol Video</h2>
+
+            <!-- Seek Seconds -->
+            <div class="control-group">
+              <div class="control-header">
+                <span class="item-label" data-i18n="seekLabel">Lompatan Waktu (Seek)</span>
+                <span id="seek-value-display" class="val-display">10 dtk</span>
+              </div>
+              <div class="segmented-control" id="seek-segmented" role="radiogroup" aria-label="Durasi lompatan waktu" data-i18n-aria="seekAriaLabel">
+                <button type="button" role="radio" data-value="5" aria-checked="false" class="segment-btn" data-i18n="seek5">5 dtk</button>
+                <button type="button" role="radio" data-value="10" aria-checked="true" class="segment-btn is-active" data-i18n="seek10">10 dtk</button>
+                <button type="button" role="radio" data-value="15" aria-checked="false" class="segment-btn" data-i18n="seek15">15 dtk</button>
+                <button type="button" role="radio" data-value="30" aria-checked="false" class="segment-btn" data-i18n="seek30">30 dtk</button>
+              </div>
+            </div>
+
+            <!-- Volume Step -->
+            <div class="control-group">
+              <div class="control-header">
+                <span class="item-label" data-i18n="volumeLabel">Langkah Volume</span>
+                <span id="volume-value-display" class="val-display">10 %</span>
+              </div>
+              <div class="segmented-control" id="volume-segmented" role="radiogroup" aria-label="Besar langkah volume" data-i18n-aria="volumeAriaLabel">
+                <button type="button" role="radio" data-value="5" aria-checked="false" class="segment-btn" data-i18n="vol5">5 %</button>
+                <button type="button" role="radio" data-value="10" aria-checked="true" class="segment-btn is-active" data-i18n="vol10">10 %</button>
+                <button type="button" role="radio" data-value="20" aria-checked="false" class="segment-btn" data-i18n="vol20">20 %</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4: Warna Fokus -->
+          <div class="card card-color">
+            <div class="card-header">
+              <h2 class="card-section-title" data-i18n="colorSectionTitle">Warna Fokus</h2>
+              <span id="ring-color-code" class="color-hex-tag">#00e5ff</span>
+            </div>
+
+            <!-- Swatches -->
+            <div class="swatches-row" role="radiogroup" aria-label="Pilihan warna ring fokus" data-i18n-aria="colorSwatchesAriaLabel">
+              <button type="button" role="radio" class="swatch-btn is-selected" data-color="#00e5ff" aria-label="Warna Cyan (#00e5ff)" data-i18n-aria="colorCyanAria" aria-checked="true" style="--swatch-color: #00e5ff;">
+                <svg class="check-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </button>
+              <button type="button" role="radio" class="swatch-btn" data-color="#76ff03" aria-label="Warna Hijau Terang (#76ff03)" data-i18n-aria="colorGreenAria" aria-checked="false" style="--swatch-color: #76ff03;">
+                <svg class="check-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </button>
+              <button type="button" role="radio" class="swatch-btn" data-color="#ffea00" aria-label="Warna Kuning (#ffea00)" data-i18n-aria="colorYellowAria" aria-checked="false" style="--swatch-color: #ffea00;">
+                <svg class="check-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </button>
+              <button type="button" role="radio" class="swatch-btn" data-color="#ff4081" aria-label="Warna Merah Muda (#ff4081)" data-i18n-aria="colorPinkAria" aria-checked="false" style="--swatch-color: #ff4081;">
+                <svg class="check-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </button>
+              <button type="button" role="radio" class="swatch-btn" data-color="#b388ff" aria-label="Warna Ungu Pastel (#b388ff)" data-i18n-aria="colorPurpleAria" aria-checked="false" style="--swatch-color: #b388ff;">
+                <svg class="check-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </button>
+              <button type="button" role="radio" class="swatch-btn" data-color="#ffffff" aria-label="Warna Putih (#ffffff)" data-i18n-aria="colorWhiteAria" aria-checked="false" style="--swatch-color: #ffffff;">
+                <svg class="check-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Mock Preview Card -->
+            <div class="mock-preview-wrap">
+              <span class="preview-label" data-i18n="previewLabel">Pratinjau Ring Fokus:</span>
+              <div class="mock-card" id="mock-preview-card" aria-hidden="true">
+                <div class="mock-thumb">
+                  <div class="mock-play-icon">▶</div>
+                  <span class="mock-time">14:20</span>
+                </div>
+                <div class="mock-info">
+                  <div class="mock-line-title"></div>
+                  <div class="mock-line-sub"></div>
+                </div>
+                <div class="mock-focus-tag" data-i18n="mockFocusTag">FOKUS AKTIF</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 5: Bahasa -->
+          <div class="card card-language">
+            <h2 class="card-section-title" data-i18n="languageSectionTitle">Bahasa</h2>
+            <div class="segmented-control" id="language-segmented" role="radiogroup" aria-label="Pilihan bahasa antarmuka" data-i18n-aria="languageAriaLabel">
+              <button type="button" role="radio" data-value="auto" aria-checked="false" class="segment-btn" data-i18n="langAuto">Otomatis</button>
+              <button type="button" role="radio" data-value="id" aria-checked="true" class="segment-btn is-active" data-i18n="langId">Indonesia</button>
+              <button type="button" role="radio" data-value="en" aria-checked="false" class="segment-btn" data-i18n="langEn">English</button>
+            </div>
+          </div>
+
+          <!-- Footer Action -->
+          <footer class="settings-footer">
+            <a id="btn-donate" class="btn-donate" href="#" target="_blank" rel="noopener noreferrer">☕ <span data-i18n="btnDonate">Traktir Kopi</span></a>
+            <span class="donate-note" data-i18n="donateNote">Gratis & open source. Dukung pengembangan jika bermanfaat.</span>
+            <button type="button" id="btn-reset" class="btn-reset">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                <path d="M3 3v5h5"></path>
+              </svg>
+              <span id="btn-reset-text" data-i18n="btnReset">Reset ke Default</span>
+            </button>
+            <p class="sync-note">
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 16.9A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25"></path>
+                <polyline points="8 17 12 21 16 17"></polyline>
+                <line x1="12" y1="12" x2="12" y2="21"></line>
+              </svg>
+              <span data-i18n="syncNote">Pengaturan disinkronkan ke akun Chrome Anda</span>
+            </p>
+          </footer>
+
+        </div>
+      </section>
+
+      <!-- TAB 2: PANDUAN -->
+      <section id="panel-guide" role="tabpanel" aria-labelledby="tab-guide" class="tab-panel" hidden>
+        <div class="guide-sections">
+
+          <!-- Section 1: Navigasi -->
+          <details class="guide-accordion" open>
+            <summary class="guide-summary">
+              <span class="summary-left">
+                <span class="summary-icon">🕹️</span>
+                <span class="summary-title" data-i18n="guideNavTitle">Navigasi D-Pad</span>
+              </span>
+              <svg class="chevron-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </summary>
+            <div class="guide-content">
+              <ul class="guide-list">
+                <li>
+                  <div class="key-group">
+                    <kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd>
+                  </div>
+                  <span class="key-desc" data-i18n="guideNavArrows">Pindah antar thumbnail / tombol (satu card = satu perhentian terdekat)</span>
+                </li>
+                <li>
+                  <div class="key-group">
+                    <kbd>Enter</kbd>
+                  </div>
+                  <span class="key-desc" data-i18n="guideNavEnter">OK / Klik elemen yang sedang disorot fokus</span>
+                </li>
+                <li>
+                  <div class="key-group">
+                    <kbd>Backspace</kbd>
+                  </div>
+                  <span class="key-desc" data-i18n="guideNavBackspace">Kembali (keluar dari fullscreen atau kembali ke halaman web sebelumnya)</span>
+                </li>
+              </ul>
+            </div>
+          </details>
+
+          <!-- Section 2: Mode Navigasi vs Video -->
+          <details class="guide-accordion">
+            <summary class="guide-summary">
+              <span class="summary-left">
+                <span class="summary-icon">🎬</span>
+                <span class="summary-title" data-i18n="guideModeTitle">Mode Navigasi &amp; Video</span>
+              </span>
+              <svg class="chevron-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </summary>
+            <div class="guide-content">
+              <p class="guide-intro" data-i18n="guideModeIntro">Remot memiliki dua mode operasi:</p>
+              <div class="mode-badge-wrap">
+                <span class="mode-tag mode-page" data-i18n="guideModePage">Navigasi Halaman (Default)</span>
+                <span class="mode-sep">⇌</span>
+                <span class="mode-tag mode-video" data-i18n="guideModeVideo">Kontrol Video</span>
+              </div>
+              <ul class="guide-list">
+                <li>
+                  <div class="key-group">
+                    <kbd>Tab</kbd> <span data-i18n="wordOr">atau</span> <kbd>P</kbd>
+                  </div>
+                  <span class="key-desc" data-i18n="guideModeTabP">Berpindah langsung antara Mode Navigasi &amp; Kontrol Video</span>
+                </li>
+              </ul>
+              <div class="sub-guide-box">
+                <span class="sub-guide-title" data-i18n="guideVideoActiveTitle">Saat Mode Kontrol Video Aktif:</span>
+                <ul class="guide-list">
+                  <li>
+                    <div class="key-group">
+                      <kbd>←</kbd> / <kbd>→</kbd>
+                    </div>
+                    <span class="key-desc" data-i18n="guideVideoArrows">Mundur / Maju video sesuai pengaturan detik</span>
+                  </li>
+                  <li>
+                    <div class="key-group">
+                      <kbd>↑</kbd> / <kbd>↓</kbd>
+                    </div>
+                    <span class="key-desc" data-i18n="guideVideoVolume">Naikkan / Turunkan volume suara</span>
+                  </li>
+                  <li>
+                    <div class="key-group">
+                      <kbd>Enter</kbd> / <kbd>Spasi</kbd>
+                    </div>
+                    <span class="key-desc" data-i18n="guideVideoPlayPause">Putar atau jeda video (Play / Pause)</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </details>
+
+          <!-- Section 3: Pintasan Cepat -->
+          <details class="guide-accordion">
+            <summary class="guide-summary">
+              <span class="summary-left">
+                <span class="summary-icon">⚡</span>
+                <span class="summary-title" data-i18n="guideShortcutsTitle">Tombol Pintasan Cepat</span>
+              </span>
+              <svg class="chevron-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </summary>
+            <div class="guide-content">
+              <ul class="guide-list">
+                <li>
+                  <div class="key-group">
+                    <kbd>F</kbd>
+                  </div>
+                  <span class="key-desc" data-i18n="guideKeyF">Beralih Layar Penuh (Fullscreen)</span>
+                </li>
+                <li>
+                  <div class="key-group">
+                    <kbd>M</kbd>
+                  </div>
+                  <span class="key-desc" data-i18n="guideKeyM">Bisu atau Aktifkan Suara (Mute / Unmute)</span>
+                </li>
+                <li>
+                  <div class="key-group">
+                    <kbd>C</kbd>
+                  </div>
+                  <span class="key-desc" data-i18n="guideKeyC">Nyalakan atau Matikan Subtitle / Teks (CC)</span>
+                </li>
+                <li>
+                  <div class="key-group">
+                    <kbd>S</kbd> <span data-i18n="wordOr">atau</span> <kbd>/</kbd>
+                  </div>
+                  <span class="key-desc" data-i18n="guideKeyS">Buka dan fokus langsung ke Kolom Pencarian</span>
+                </li>
+                <li>
+                  <div class="key-group">
+                    <kbd>T</kbd>
+                  </div>
+                  <span class="key-desc" data-i18n="guideKeyT">Buka daftar tab: ↑ ↓ pilih, Enter pindah, Delete tutup tab, Esc batal</span>
+                </li>
+                <li>
+                  <div class="key-group">
+                    <kbd>[</kbd> <kbd>]</kbd>
+                  </div>
+                  <span class="key-desc" data-i18n="guideKeyBrackets">Langsung ke tab sebelumnya / berikutnya</span>
+                </li>
+                <li>
+                  <div class="key-group">
+                    <kbd>Esc</kbd>
+                  </div>
+                  <span class="key-desc" data-i18n="guideKeyEsc">Keluar dari kolom ketik / tutup popup modal</span>
+                </li>
+              </ul>
+            </div>
+          </details>
+
+          <!-- Section 4: Tips & Trik -->
+          <details class="guide-accordion">
+            <summary class="guide-summary">
+              <span class="summary-left">
+                <span class="summary-icon">💡</span>
+                <span class="summary-title" data-i18n="guideTipsTitle">Tips Penggunaan Remot</span>
+              </span>
+              <svg class="chevron-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </summary>
+            <div class="guide-content">
+              <ul class="tips-list">
+                <li>
+                  <span class="tip-bullet">📌</span>
+                  <span><span data-i18n="guideTip1Pre">Tekan</span> <kbd>Enter</kbd> <span data-i18n="guideTip1Post">pada kolom input teks untuk mulai mengetik kata kunci.</span></span>
+                </li>
+                <li>
+                  <span class="tip-bullet">📌</span>
+                  <span><span data-i18n="guideTip2Pre">Tekan</span> <kbd>Esc</kbd> <span data-i18n="guideTip2Mid">atau tombol panah</span> <kbd>↓</kbd> <span data-i18n="guideTip2Post">saat selesai mengetik untuk kembali ke navigasi D-Pad.</span></span>
+                </li>
+                <li>
+                  <span class="tip-bullet">📌</span>
+                  <span><span data-i18n="guideTip3Pre">Posisi fokus Anda akan pulih secara otomatis saat kembali menggunakan</span> <kbd>Backspace</kbd><span data-i18n="guideTip3Post">.</span></span>
+                </li>
+                <li>
+                  <span class="tip-bullet">📌</span>
+                  <span data-i18n="guideTip4">Bar kontrol player video tetap tampil otomatis selama fokus D-Pad berada di tombol pemutar.</span>
+                </li>
+              </ul>
+            </div>
+          </details>
+
+        </div>
+      </section>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast" role="status" aria-live="polite" data-i18n="toastSaved">Tersimpan ✓</div>
+  </div>
+
+  <script src="i18n.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

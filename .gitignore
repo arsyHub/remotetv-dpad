@@ -1,0 +1,15 @@
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# Extension Packages & Keys
+*.zip
+*.crx
+*.pem
+
+# Dependencies
+node_modules/
+
+# Editor & IDE Directories
+.vscode/
+.idea/
